@@ -21,6 +21,7 @@ char **get_args(char *line);
 int _strlen(char *s);
 char *_strcat(char *src, char *dest);
 char *_strdup(char *str);
+int _strcmp(char *str1, char *str2);
 int built_in(char **args);
 int execute_cmd(char **args);
 int check_execute(char **args);
