@@ -2,11 +2,14 @@
 
 /**
  * main - Entry point
- * Return:  0 on success
+ *
+ * Description: Standard output display of shell.
+ * Return: 0 on success.
  */
 
 int main(void)
 {
 	sh_loop();
+
 	return (0);
 }
