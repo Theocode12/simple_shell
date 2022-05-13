@@ -19,6 +19,11 @@ void sh_loop(void)
 			status = 0;
 			break;
 		}
+		if (_strcmp(line,"exit") == 0)
+		{
+			status = 0;
+			break;
+		}
 		args = get_args(line);
 		status = built_in(args);
 		if (status < 0)
