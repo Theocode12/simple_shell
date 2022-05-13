@@ -1,11 +1,12 @@
 #include "main.h"
 
-/**/
+/**
+ * main - Entry point
+ * Return:  0 on success
+ */
 
 int main(void)
 {
-	/*printf("Entered\n");*/
 	sh_loop();
-	
 	return (0);
 }

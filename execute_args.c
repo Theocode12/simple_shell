@@ -43,6 +43,7 @@ void execute(char **args)
 /**
  * check_execute - checks if the command exits in the path
  * @args: command
+ * Return: 1 on success
  */
 
 int check_execute(char **args)
@@ -79,6 +80,12 @@ int execute_cmd(char **args)
 	return (check);
 }
 
+/**
+ * exec_cmd - Execute a args that are not directories
+ * @args: arguement
+ * Return: returns 1 if successfully executed
+ */
+
 int exec_cmd(char **args)
 {
 	char *pathenv, *token,  *path, cwd[256];
@@ -91,7 +98,6 @@ int exec_cmd(char **args)
 	while (token != NULL)
 	{
 		path = _strcat(token, args[0]);
-		
 		if (stat(path, &st) == 0)
 		{
 			args[0] = path;
