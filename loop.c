@@ -3,7 +3,6 @@
 /**
  *sh_loop -Standard output display of C - simple_shell
  */
-
 void sh_loop(void)
 {
 	char *line = NULL, **args;

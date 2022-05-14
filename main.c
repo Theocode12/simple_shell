@@ -7,9 +7,9 @@
  * Return: 0 on success.
  */
 
-int main(__attribute__((unused))int argc, char **argv)
+int main(void)
 {
-
 	sh_loop();
+
 	return (0);
 }
