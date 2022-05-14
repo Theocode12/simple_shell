@@ -1,7 +1,7 @@
 #include "main.h"
 
 /**
- * sh_loop - shell loop
+ *sh_loop -Standard output display of C - simple_shell
  */
 
 void sh_loop(void)
@@ -17,6 +17,11 @@ void sh_loop(void)
 		if (count < 0)
 		{
 			putchar('\n');
+			status = 0;
+			break;
+		}
+		if (_strcmp(line,"exit") == 0)
+		{
 			status = 0;
 			break;
 		}

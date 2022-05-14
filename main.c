@@ -2,11 +2,14 @@
 
 /**
  * main - Entry point
- * Return:  0 on success
+ *
+ * Description: Standard output display of shell.
+ * Return: 0 on success.
  */
 
-int main(void)
+int main(__attribute__((unused))int argc, char **argv)
 {
+
 	sh_loop();
 	return (0);
 }

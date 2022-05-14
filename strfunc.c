@@ -73,3 +73,26 @@ char *_strcat(char *src, char *dest)
 	cat_str[len_1] = '\0';
 	return (cat_str);
 }
+/**
+ * _strcmp - compare two strings
+ * @str1: first string
+ * @str2: second string
+ *
+ * Return: 0 if both are same else -1.
+ */
+int _strcmp(char *str1, char *str2)
+{
+	int i = 0, j = 0, cmp = 0;
+
+	while (str1[i] && str2[j])
+	{
+		if (str1[i] != str2[j])
+		{
+			cmp = -1;
+			break;
+		}
+		i++;
+		j++;
+	}
+	return (cmp);
+}
