@@ -11,18 +11,36 @@
 #include <unistd.h>
 #define BUFFSIZE 32
 
+/**
+ * struct builtin_fun - struct that execute builtin funnction if seen
+ * @name: string to be compared with
+ * @f: function pointer
+ * Description: struct for builtin function
+ */
+typedef struct builtin_fun
+{
+	char *name;
+	void (*f)(char **args);
+} built_in;
 void sh_loop(void);
 char *eval_str(char *str, char **nxt_ptr, const char *delim);
 char *check_str(char *str, const char *delim);
 char *_strtok(char *str, const char *delim);
+
 ssize_t _getline(char **lineptr, size_t *n, FILE *stream);
 char *_getenv(char *name);
 char **get_args(char *line);
+
 int _strlen(char *s);
 char *_strcat(char *src, char *dest);
 char *_strdup(char *str);
 int _strcmp(char *str1, char *str2);
-int built_in(char **args);
+
+int builtin_args(char **args);
+void bui_exit(char **args);
+void bui_env(char **args);
+
+
 int execute_cmd(char **args);
 int check_execute(char **args);
 int check_dir(char **args);
