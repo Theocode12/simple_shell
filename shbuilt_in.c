@@ -12,19 +12,35 @@ int builtin_args(char **args)
 	built_in  ptr[] = {
 		{"exit", bui_exit},
 		{"env", bui_env},
+		{"unsetenv", bui_unsetenv},
 		{NULL, NULL}
 	};
 	if (args == NULL)
 		return (1);
 	for (i = 0; ptr[i].name; i++)
 	{
-		if (_strcmp(ptr->name, args[0]) == 0)
+		if (_strcmp(args[0], ptr[i].name) == 0)
 		{
 			status = 1;
-			ptr->f(args);
+			ptr[i].f(args);
 		}
 	}
 	return (status);
+}
+
+/**
+ * bui_unsetenv - unset an env variable
+ * @args: arguements
+ */
+
+void bui_unsetenv(char **args)
+{
+	if (args[1] == NULL)
+	{
+		perror("insufficient arguements");
+		return;
+	}
+	_unsetenv(args[1]);
 }
 
 /**
@@ -38,7 +54,7 @@ void bui_exit(char **args)
 
 	if (args[1] != NULL)
 	{
-		status = atoi(args[1]);
+		status =  atoi(args[1]);
 	}
 	free(*args);
 	free(args);

@@ -74,25 +74,21 @@ char *_strcat(char *src, char *dest)
 	return (cat_str);
 }
 /**
- * _strcmp - compare two strings
- * @str1: first string
- * @str2: second string
- *
- * Return: 0 if both are same else -1.
+ * _strcmp - compares two strings
+ * @strcmp1: first string, of two, to be compared in length
+ * @strcmp2: second string, of two, to be compared
+ * Return: 0 on success, anything else is a failure
  */
-int _strcmp(char *str1, char *str2)
+int _strcmp(char *strcmp1, char *strcmp2)
 {
-	int i = 0, j = 0, cmp = 0;
+	int i;
 
-	while (str1[i] && str2[j])
+	i = 0;
+	while (strcmp1[i] == strcmp2[i])
 	{
-		if (str1[i] != str2[j])
-		{
-			cmp = -1;
-			break;
-		}
+		if (strcmp1[i + 1] == '\0')
+			return (0);
 		i++;
-		j++;
 	}
-	return (cmp);
+	return (strcmp1[i] - strcmp2[i]);
 }

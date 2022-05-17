@@ -20,13 +20,30 @@ int main(void)
 		if (count < 0)
 		{
 			putchar('\n');
+			free(line);
 			status = 0;
 			break;
 		}
 		args = get_args(line);
+		if (args == NULL)
+			printf("Null seen");
 		status = builtin_args(args);
+		printf("status: %d\n", status);
 		if (status < 0)
 			status = execute_cmd(args);
+		/*i = 0;
+		while (environ[i] != NULL)
+		{
+			printf("%s\n", environ[i]);
+			i++;
+		}*/
+		
+		/*if (*line != '\0')
+		{
+			free(line);
+			
+		}
+		free(NULL);*/
 	} while (status);
 
 	return (0);

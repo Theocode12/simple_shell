@@ -88,9 +88,9 @@ int execute_cmd(char **args)
 
 int exec_cmd(char **args)
 {
-	char *pathenv, *token,  *path, cwd[256];
-	struct stat st;
+	char *pathenv, *token,  *path;
 	int  check_run = 0;
+	struct stat st;
 
 	pathenv = _getenv("PATH");
 	pathenv = _strdup(pathenv);
@@ -102,30 +102,24 @@ int exec_cmd(char **args)
 		{
 			args[0] = path;
 			if (access(args[0], X_OK) == 0)
+			{
 				execute(args);
+				free(path);
+			}
 			else
+			{
 				dprintf(STDERR_FILENO, "%s: Permission denied\n", path);
+				free(path);
+			}
 			check_run++;
 			break;
 		}
 		free(path);
 		token = _strtok(NULL, ":");
 	}
-	if (check_run == 0)
-	{
-		getcwd(cwd, sizeof(cwd));
-		path = _strcat(cwd, args[0]);
-		if (stat(path, &st) == 0)
-		{
-			args[0] = path;
-			if (access(args[0], X_OK) == 0)
-				execute(args);
-			else
-				dprintf(STDERR_FILENO, "%s: Permission denied\n", path);
-			check_run++;
-		}
-	}
+	check_run = check_cwd(check_run, args);
 	if (check_run < 1)
 		dprintf(STDERR_FILENO, "%s: No such file or directory\n", args[0]);
+	free(pathenv);
 	return (1);
 }
