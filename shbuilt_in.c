@@ -61,7 +61,7 @@ void bui_exit(char **args)
 
 	for (i = 0; args[i]; i++)
 		;
-	if (i > 1)
+	if (i > 2)
 	{
 		count = _strlen(args[0]);
 		status = _strlen(msg);
