@@ -41,6 +41,7 @@ char **get_args(char *line)
  * check_cwd - checks if command is in current working dir
  * @check_run: checks if a command has been executed
  * @args: arguements passed
+ * @argv: arguement passed into the function
  * Return: 1 if command in current working dir otherwise 0
  */
 

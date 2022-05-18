@@ -3,6 +3,7 @@
 /**
  * execute_cmd - calls functions necessary to succesfully execute a command
  * @args: command
+ * @argv: arguement passed into the function
  * Return: 1 if command is sucessfully executed otherwise 0
  */
 
@@ -34,6 +35,7 @@ int check_dir(char **args)
 /**
  * execute - executes a command in a child process
  * @args: command
+ * @argv: arguement passed into the function
  */
 
 void execute(char **args, char **argv)
@@ -70,6 +72,7 @@ void execute(char **args, char **argv)
 /**
  * check_execute - checks if the command exits in the path
  * @args: command
+ * @argv: arguement passed into the function
  * Return: 1 on success
  */
 
@@ -101,6 +104,7 @@ int check_execute(char **args, char **argv)
 /**
  * exec_cmd - Execute a args that are not directories
  * @args: arguement
+ * @argv: arguement passed into the function
  * Return: returns 1 if successfully executed
  */
 

@@ -2,7 +2,8 @@
 
 /**
  * main - Entry point
- *
+ * @argc: number of arguements
+ * @argv: arguement passed into the function
  * Description: Standard output display of shell.
  * Return: 0 on success.
  */
@@ -12,8 +13,8 @@ int main(__attribute__((unused))int argc, char **argv)
 	char *line = NULL, **args;
 	int status = 1;
 	char **chk_env = environ;
-	__attribute__((unused))ssize_t count;
 	size_t n = 0;
+	unsigned int count;
 
 	do {
 		if (isatty(STDIN_FILENO))

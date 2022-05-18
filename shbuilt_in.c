@@ -57,7 +57,8 @@ void bui_unsetenv(char **args)
 void bui_exit(char **args)
 {
 	int status =  0;
-	if (args[2] !=NULL)
+
+	if (args[2] != NULL)
 	{
 		write(STDERR_FILENO, args[0], 4);
 		write(STDERR_FILENO, ": too many arguenment\n", 22);
@@ -85,9 +86,9 @@ void bui_env(__attribute__((unused))char **args)
 	if (args[1] == NULL)
 		while (environ[i] != NULL)
 		{
-			count =_strlen(environ[i]);
+			count = _strlen(environ[i]);
 			write(STDOUT_FILENO, environ[i], count);
-			write(STDOUT_FILENO,"\n", 1);
+			write(STDOUT_FILENO, "\n", 1);
 			i++;
 		}
 	else
