@@ -113,7 +113,7 @@ void bui_env(__attribute__((unused))char **args, __attribute__((unused))char **a
 
 /**
  * bui_setenv - set an environmental variable
- * @args: arguements
+ * @args: arguments
  */
 
 void bui_setenv(char **args,  __attribute__((unused))char **argv)
