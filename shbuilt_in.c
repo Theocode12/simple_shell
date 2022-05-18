@@ -100,7 +100,7 @@ void bui_setenv(char **args)
 		perror("Too many arguements for setenv");
 		return;
 	}
-	if (args[1] == NULL) 
+	if (args[1] == NULL)
 	{
 		perror("insufficient arguements");
 		return;
