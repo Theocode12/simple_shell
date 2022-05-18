@@ -32,7 +32,7 @@ int builtin_args(char **args, char **argv)
 
 /**
  * bui_unsetenv - unset an env variable
- * @args: arguments
+ * @args: arguments from custom shell
  * @argv: argument vector from main.c
  */
 
