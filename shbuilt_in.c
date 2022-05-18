@@ -22,7 +22,6 @@ int builtin_args(char **args)
 	{
 		if (_strcmp(args[0], ptr[i].name) == 0)
 		{
-			printf("%s\n", ptr[i].name);
 			status = 1;
 			ptr[i].f(args);
 		}
