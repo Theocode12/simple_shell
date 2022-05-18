@@ -9,7 +9,7 @@
 #include <sys/stat.h>
 #include <sys/wait.h>
 #include <unistd.h>
-#define BUFFSIZE 32
+#define BUFFSIZE 1024
 
 /**
  * struct builtin_fun - struct that execute builtin funnction if seen

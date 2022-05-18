@@ -11,13 +11,12 @@ char **get_args(char *line)
 	char **args;
 	int i = 0, size = BUFFSIZE;
 
-	printf("line : %d\n", *line);
 	if (*line == '\0')
 		return (NULL);
 	args = malloc(size * sizeof(char *));
 	if (args == NULL)
 	{
-		printf("unable allocate memory");
+		perror("unable allocate memory");
 		return (NULL);
 	}
 	args[i] = _strtok(line, " ");
