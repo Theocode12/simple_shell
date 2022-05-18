@@ -37,6 +37,7 @@ int _strlen(char *s);
 char *_strcat(char *src, char *dest);
 char *_strdup(char *str);
 int _strcmp(char *strcmp1, char *strcmp2);
+int _atoi(char *s);
 
 int builtin_args(char **args);
 void bui_exit(char **args);

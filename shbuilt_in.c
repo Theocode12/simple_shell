@@ -54,7 +54,7 @@ void bui_exit(char **args)
 
 	if (args[1] != NULL)
 	{
-		status =  atoi(args[1]);
+		status =  _atoi(args[1]);
 	}
 	free(*args);
 	free(args);
