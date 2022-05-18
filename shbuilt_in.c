@@ -8,7 +8,7 @@
 
 int builtin_args(char **args)
 {
-	int i, status = -1;
+	int i = 0, status = -1;
 	built_in  ptr[] = {
 		{"exit", bui_exit},
 		{"env", bui_env},
@@ -56,18 +56,21 @@ void bui_unsetenv(char **args)
 
 void bui_exit(char **args)
 {
-	int status =  0;
+	int status =  0, count = 0, i;
+	char *msg = ": too many arguenment\n";
 
-	if (args[2] != NULL)
+	for (i = 0; args[i]; i++)
+		;
+	if (i > 1)
 	{
-		write(STDERR_FILENO, args[0], 4);
-		write(STDERR_FILENO, ": too many arguenment\n", 22);
+		count = _strlen(args[0]);
+		status = _strlen(msg);
+		write(STDERR_FILENO, args[0], count);
+		write(STDERR_FILENO, msg, status);
 		return;
 	}
-	else if (args[1] != NULL)
-	{
-		status =  atoi(args[1]);
-	}
+	if (args[1] != NULL)
+		status =  _atoi(args[1]);
 	free(*args);
 	free(args);
 	exit(status);
@@ -113,7 +116,7 @@ void bui_setenv(char **args)
 		perror("Too many arguements for setenv");
 		return;
 	}
-	if (args[1] == NULL) 
+	if (args[1] == NULL)
 	{
 		perror("insufficient arguements");
 		return;
