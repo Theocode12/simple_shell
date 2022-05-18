@@ -57,8 +57,13 @@ void bui_unsetenv(char **args)
 void bui_exit(char **args)
 {
 	int status =  0;
-
-	if (args[1] != NULL)
+	if (args[2] !=NULL)
+	{
+		write(STDERR_FILENO, args[0], 4);
+		write(STDERR_FILENO, ": too many arguenment\n", 22);
+		return;
+	}
+	else if (args[1] != NULL)
 	{
 		status =  atoi(args[1]);
 	}
@@ -74,17 +79,25 @@ void bui_exit(char **args)
 
 void bui_env(__attribute__((unused))char **args)
 {
-	unsigned int i;
+	unsigned int i, count = 0;
 
 	i = 0;
 	if (args[1] == NULL)
 		while (environ[i] != NULL)
 		{
-			printf("%s\n", environ[i]);
+			count =_strlen(environ[i]);
+			write(STDOUT_FILENO, environ[i], count);
+			write(STDOUT_FILENO,"\n", 1);
 			i++;
 		}
 	else
-		perror("invalid command");
+	{
+		count = _strlen(args[1]);
+		write(STDERR_FILENO, args[0], 3);
+		write(STDERR_FILENO, ": ", 3);
+		write(STDERR_FILENO, args[1], count);
+		write(STDERR_FILENO, ": No such file or directory\n", 31);
+	}
 }
 
 /**

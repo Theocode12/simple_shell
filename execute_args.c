@@ -1,6 +1,24 @@
 #include "main.h"
 
 /**
+ * execute_cmd - calls functions necessary to succesfully execute a command
+ * @args: command
+ * Return: 1 if command is sucessfully executed otherwise 0
+ */
+
+int execute_cmd(char **args, char **argv)
+{
+	int dir_check, check;
+
+	dir_check = check_dir(args);
+	if (dir_check > 0)
+		check = check_execute(args, argv);
+	else
+		check = exec_cmd(args, argv);
+	return (check);
+}
+
+/**
  * check_dir - check if the command is an absolute path
  * @args: command
  * Return: 1 if it's a directory else 0
@@ -18,23 +36,32 @@ int check_dir(char **args)
  * @args: command
  */
 
-void execute(char **args)
+void execute(char **args, char **argv)
 {
 	pid_t child;
-	int status;
+	int status, len_argv = 0, len_args = 0;
 
 	child = fork();
 	if (child == 0)
 	{
-		if (execve(args[0], args, environ) == -1)
+		if (execve(args[0], argv, environ) == -1)
 		{
-			dprintf(STDERR_FILENO, "%s: Is a directory\n", args[0]);
+			len_args = _strlen(args[0]);
+			len_argv = _strlen(argv[0]);
+			write(STDERR_FILENO, argv[0], len_argv);
+			write(STDERR_FILENO, ": ", 2);
+			write(STDERR_FILENO, args[0], len_args);
+			write(STDERR_FILENO, ": Is a directory\n", 17);
 			exit(0);
 		}
 	}
 	else if (child < 0)
 	{
-		dprintf(STDERR_FILENO, "Failed to execute command");
+		len_args = _strlen(args[0]);
+		len_argv = _strlen(argv[0]);
+		write(STDERR_FILENO, argv[0], len_argv);
+		write(STDERR_FILENO, ": ", 2);
+		write(STDERR_FILENO, args[0], len_args);
 	}
 	else
 		wait(&status);
@@ -46,38 +73,29 @@ void execute(char **args)
  * Return: 1 on success
  */
 
-int check_execute(char **args)
+int check_execute(char **args, char **argv)
 {
 	struct stat st;
+	int count = 0;
 
 	if (stat(args[0], &st) == 0)
 	{
 		if (access(args[0], X_OK) == 0)
-			execute(args);
+			execute(args, argv);
 		else
-			dprintf(STDERR_FILENO, "%s: Permission denied\n", args[0]);
+		{
+			count = _strlen(argv[0]);
+			write(STDERR_FILENO, argv[0], count);
+			write(STDERR_FILENO, ": permission denied", 19);
+		}
 	}
 	else
-		dprintf(STDERR_FILENO, "%s: No such file or directory\n", args[0]);
+	{
+		count = _strlen(argv[0]);
+		write(STDERR_FILENO, argv[0], count);
+		write(STDERR_FILENO, ": No such file or directory\n", 28);
+	}
 	return (1);
-}
-
-/**
- * execute_cmd - calls functions necessary to succesfully execute a command
- * @args: command
- * Return: 1 if command is sucessfully executed otherwise 0
- */
-
-int execute_cmd(char **args)
-{
-	int dir_check, check;
-
-	dir_check = check_dir(args);
-	if (dir_check > 0)
-		check = check_execute(args);
-	else
-		check = exec_cmd(args);
-	return (check);
 }
 
 /**
@@ -86,10 +104,10 @@ int execute_cmd(char **args)
  * Return: returns 1 if successfully executed
  */
 
-int exec_cmd(char **args)
+int exec_cmd(char **args, char **argv)
 {
 	char *pathenv, *token,  *path;
-	int  check_run = 0;
+	int  check_run = 0, count = 0;
 	struct stat st;
 
 	pathenv = _getenv("PATH");
@@ -103,12 +121,14 @@ int exec_cmd(char **args)
 			args[0] = path;
 			if (access(args[0], X_OK) == 0)
 			{
-				execute(args);
+				execute(args, argv);
 				free(path);
 			}
 			else
 			{
-				dprintf(STDERR_FILENO, "%s: Permission denied\n", path);
+				count = _strlen(argv[0]);
+				write(STDERR_FILENO, argv[0], count);
+				write(STDERR_FILENO, ": permission denied", 19);
 				free(path);
 			}
 			check_run++;
@@ -117,9 +137,25 @@ int exec_cmd(char **args)
 		free(path);
 		token = _strtok(NULL, ":");
 	}
-	check_run = check_cwd(check_run, args);
+	if (check_run == 0)
+		check_run = check_cwd(check_run, args, argv);
 	if (check_run < 1)
-		dprintf(STDERR_FILENO, "%s: No such file or directory\n", args[0]);
+	{
+		count = _strlen(argv[0]);
+		if (isatty(STDIN_FILENO))
+		{
+			write(STDERR_FILENO, argv[0], count);
+			write(STDERR_FILENO, ": No such file or directory\n", 28);
+		}
+		else
+		{
+			write(STDERR_FILENO, argv[0], count);
+			write(STDERR_FILENO, " 1: ", 4);
+			count = _strlen(args[0]);
+			write(STDERR_FILENO, args[0], count);
+			write(STDERR_FILENO, ": not found\n", 12);
+		}
+	}
 	free(pathenv);
 	return (1);
 }
