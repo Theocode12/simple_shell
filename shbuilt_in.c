@@ -84,7 +84,7 @@ void bui_exit(char **args, char **argv)
 
 /**
  * bui_env - get environment variables
- * @args: arguement list
+ * @args: argument list
  * @argv: argument vector from main.c
  */
 
