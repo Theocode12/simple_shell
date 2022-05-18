@@ -70,7 +70,7 @@ int check_cwd(int check_run, char **args, char **argv)
 
 /**
  * check_cmd_tty - checks if command is from terminal and print error message
- * @args: arguments 
+ * @args: arguments
  * @argv: arguement vector 
  */
 
