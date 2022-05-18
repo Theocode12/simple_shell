@@ -9,10 +9,6 @@
 
 int main(void)
 {
-<<<<<<< HEAD
-	sh_loop();
-
-=======
 	char *line = NULL, **args;
 	int status = 1;
 	char **chk_env = environ;
@@ -39,6 +35,5 @@ int main(void)
 	} while (status);
 	if (chk_env == NULL)
 		free(environ);
->>>>>>> 210119bfbe8624e2355d7500278e9f000f77ce07
 	return (0);
 }
