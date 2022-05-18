@@ -2,7 +2,7 @@
 
 /**
  * builtin_args - evaluates built in commands
- * @args: command line arguements
+ * @args: command line arguments
  * @argv: argument vector
  * Return: -1 if no built in function is found else 1
  */
@@ -32,7 +32,8 @@ int builtin_args(char **args, char **argv)
 
 /**
  * bui_unsetenv - unset an env variable
- * @args: arguements
+ * @args: arguments
+ * @argv: argument vector from main.c
  */
 
 void bui_unsetenv(char **args,  __attribute__((unused))char **argv)
