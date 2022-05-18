@@ -3,7 +3,7 @@
 /**
  * builtin_args - evaluates built in commands
  * @args: argument from custom shell
- * @argv: argument vector
+ * @argv: argument vector from main.c
  * Return: -1 if no built in function is found else 1
  */
 
