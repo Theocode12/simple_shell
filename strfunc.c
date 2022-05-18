@@ -35,6 +35,8 @@ int _strlen(char *s)
 {
 	int i;
 
+	if (s ==  NULL)
+		return (0);
 	for (i = 0; s[i] != '\0'; i++)
 		;
 	return (i);
@@ -74,6 +76,7 @@ char *_strcat(char *src, char *dest)
 	return (cat_str);
 }
 /**
+<<<<<<< HEAD
  * _strcmp - compare two strings
  * @str1: first string
  * @str2: second string
@@ -95,4 +98,23 @@ int _strcmp(char *str1, char *str2)
 		j++;
 	}
 	return (cmp);
+=======
+ * _strcmp - compares two strings
+ * @strcmp1: first string, of two, to be compared in length
+ * @strcmp2: second string, of two, to be compared
+ * Return: 0 on success, anything else is a failure
+ */
+int _strcmp(char *strcmp1, char *strcmp2)
+{
+	int i;
+
+	i = 0;
+	while (strcmp1[i] == strcmp2[i])
+	{
+		if (strcmp1[i + 1] == '\0')
+			return (0);
+		i++;
+	}
+	return (strcmp1[i] - strcmp2[i]);
+>>>>>>> 210119bfbe8624e2355d7500278e9f000f77ce07
 }
