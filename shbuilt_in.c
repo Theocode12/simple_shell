@@ -2,7 +2,7 @@
 
 /**
  * builtin_args - evaluates built in commands
- * @args: command line arguments
+ * @args: argument from custom shell
  * @argv: argument vector
  * Return: -1 if no built in function is found else 1
  */
