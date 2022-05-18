@@ -26,7 +26,12 @@ ssize_t _getline(char **lineptr, size_t *n, FILE *stream)
 	{
 		c = getc(stream);
 		if (c == EOF && count == 0)
-			return (-1);
+		{
+			if (isatty(STDIN_FILENO))
+				write(STDOUT_FILENO, "\n", 1);
+			free(*lineptr);
+			exit(0);
+		}
 		if (c == '\n')
 			break;
 		(*lineptr)[count] =  c;

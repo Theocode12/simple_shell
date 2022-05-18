@@ -8,7 +8,7 @@
 
 char **get_args(char *line)
 {
-	char **args;
+	char **args, *msg;
 	int i = 0, size = BUFFSIZE;
 
 	if (*line == '\0')
@@ -16,10 +16,12 @@ char **get_args(char *line)
 	args = malloc(size * sizeof(char *));
 	if (args == NULL)
 	{
-		printf("unable allocate memory");
+		msg = "unable allocate memory";
+		i = _strlen(msg);
+		write(STDERR_FILENO, msg, i);
 		return (NULL);
 	}
-	args[i] = _strtok(line, " ");
+	args[i] = _strtok(line, " \n\t\r");
 	while (args[i] != NULL)
 	{
 		if (i >= size)
@@ -30,7 +32,7 @@ char **get_args(char *line)
 				return (NULL);
 		}
 		i++;
-		args[i] = _strtok(NULL, " ");
+		args[i] = _strtok(NULL, " \n\t\r");
 	}
 	return (args);
 }
@@ -39,10 +41,11 @@ char **get_args(char *line)
  * check_cwd - checks if command is in current working dir
  * @check_run: checks if a command has been executed
  * @args: arguements passed
+ * @argv: arguement passed into the function
  * Return: 1 if command in current working dir otherwise 0
  */
 
-int check_cwd(int check_run, char **args)
+int check_cwd(int check_run, char **args, char **argv)
 {
 	char cwd[256], *path;
 	struct stat st;
@@ -55,7 +58,7 @@ int check_cwd(int check_run, char **args)
 		{
 			args[0] = path;
 			if (access(args[0], X_OK) == 0)
-				execute(args);
+				execute(args, argv);
 			else
 				dprintf(STDERR_FILENO, "%s: Permission denied\n", path);
 			check_run++;

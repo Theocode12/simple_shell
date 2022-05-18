@@ -9,7 +9,7 @@
 #include <sys/stat.h>
 #include <sys/wait.h>
 #include <unistd.h>
-#define BUFFSIZE 32
+#define BUFFSIZE 1024
 
 /**
  * struct builtin_fun - struct that execute builtin funnction if seen
@@ -45,11 +45,11 @@ void bui_exit(char **args);
 void bui_env(char **args);
 void bui_unsetenv(__attribute__((unused))char **args);
 void bui_setenv(char **args);
-int execute_cmd(char **args);
-int check_execute(char **args);
+int execute_cmd(char **args, char **argv);
+int check_execute(char **args, char **argv);
 int check_dir(char **args);
-void execute(char **args);
-int exec_cmd(char **args);
-int check_cwd(int check_run, char **args);
+void execute(char **args, char **argv);
+int exec_cmd(char **args, char **argv);
+int check_cwd(int check_run, char **args, char **argv);
 
 #endif
