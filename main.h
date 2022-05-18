@@ -9,6 +9,7 @@
 #include <sys/stat.h>
 #include <sys/wait.h>
 #include <unistd.h>
+#include <limits.h>
 #define BUFFSIZE 1024
 
 /**
@@ -20,7 +21,7 @@
 typedef struct builtin_fun
 {
 	char *name;
-	void (*f)(char **args);
+	void (*f)(char **args, char **argv);
 } built_in;
 extern char **environ;
 void sh_loop(void);
@@ -39,18 +40,19 @@ int _strlen(char *s);
 char *_strcat(char *src, char *dest);
 char *_strdup(char *str);
 int _strcmp(char *strcmp1, char *strcmp2);
-int _atoi(char *s);
+int _atoi(char *str);
 
-int builtin_args(char **args);
-void bui_exit(char **args);
-void bui_env(char **args);
-void bui_unsetenv(__attribute__((unused))char **args);
-void bui_setenv(char **args);
+int builtin_args(char **args, char **argv);
+void bui_exit(char **args, char **argv);
+void bui_env(char **args, char **argv);
+void bui_unsetenv(__attribute__((unused))char **args, char **argv);
+void bui_setenv(char **args, char **argv);
 int execute_cmd(char **args, char **argv);
 int check_execute(char **args, char **argv);
 int check_dir(char **args);
 void execute(char **args, char **argv);
 int exec_cmd(char **args, char **argv);
 int check_cwd(int check_run, char **args, char **argv);
+void check_cmd_tty(char **args, char **argv);
 
 #endif

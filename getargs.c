@@ -67,3 +67,29 @@ int check_cwd(int check_run, char **args, char **argv)
 	}
 	return (check_run);
 }
+
+/**
+ * check_cmd_tty - checks if command is from terminal and print error message
+ * @args: arguments 
+ * @argv: arguement vector 
+ */
+
+void check_cmd_tty(char **args, char **argv)
+{
+	int count = 0;
+
+	count = _strlen(argv[0]);
+	if (isatty(STDIN_FILENO))
+	{
+		write(STDERR_FILENO, argv[0], count);
+		write(STDERR_FILENO, ": No such file or directory\n", 28);
+	}
+	else
+	{
+		write(STDERR_FILENO, argv[0], count);
+		write(STDERR_FILENO, ": 1: ", 5);
+		count = _strlen(args[0]);
+		write(STDERR_FILENO, args[0], count);
+		write(STDERR_FILENO, ": not found\n", 12);
+	}
+}

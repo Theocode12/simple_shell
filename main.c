@@ -25,7 +25,7 @@ int main(__attribute__((unused))int argc, char **argv)
 		if (count == 1)
 			continue;
 		args = get_args(line);
-		status = builtin_args(args);
+		status = builtin_args(args, argv);
 		if (status < 0)
 			status = execute_cmd(args, argv);
 		free(args);

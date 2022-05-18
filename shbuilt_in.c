@@ -6,7 +6,7 @@
  * Return: -1 if no built in function is found else 1
  */
 
-int builtin_args(char **args)
+int builtin_args(char **args, char **argv)
 {
 	int i = 0, status = -1;
 	built_in  ptr[] = {
@@ -23,7 +23,7 @@ int builtin_args(char **args)
 		if (_strcmp(args[0], ptr[i].name) == 0)
 		{
 			status = 1;
-			ptr[i].f(args);
+			ptr[i].f(args, argv);
 		}
 	}
 	return (status);
@@ -34,7 +34,7 @@ int builtin_args(char **args)
  * @args: arguements
  */
 
-void bui_unsetenv(char **args)
+void bui_unsetenv(char **args,  __attribute__((unused))char **argv)
 {
 	if (args[2] != NULL)
 	{
@@ -54,17 +54,20 @@ void bui_unsetenv(char **args)
  * @args: arguement
  */
 
-void bui_exit(char **args)
+void bui_exit(char **args, char **argv)
 {
 	int status =  0, count = 0, i;
-	char *msg = ": too many arguenment\n";
+	char *msg = ": too many arguments\n";
 
 	for (i = 0; args[i]; i++)
 		;
 	if (i > 2)
 	{
-		count = _strlen(args[0]);
 		status = _strlen(msg);
+		count = _strlen(argv[0]);
+		write(STDERR_FILENO, argv[0], count);
+		write(STDERR_FILENO, ": ", 2);
+		count = _strlen(args[0]);
 		write(STDERR_FILENO, args[0], count);
 		write(STDERR_FILENO, msg, status);
 		return;
@@ -81,7 +84,7 @@ void bui_exit(char **args)
  * @args: arguement list
  */
 
-void bui_env(__attribute__((unused))char **args)
+void bui_env(__attribute__((unused))char **args, __attribute__((unused))char **argv)
 {
 	unsigned int i, count = 0;
 
@@ -109,7 +112,7 @@ void bui_env(__attribute__((unused))char **args)
  * @args: arguements
  */
 
-void bui_setenv(char **args)
+void bui_setenv(char **args,  __attribute__((unused))char **argv)
 {
 	if (args[3] != NULL)
 	{

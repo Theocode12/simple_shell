@@ -83,35 +83,43 @@ char *_strcat(char *src, char *dest)
  */
 int _strcmp(char *strcmp1, char *strcmp2)
 {
-	int i;
+	int i = 0, j = 0;
 
 	i = 0;
-	while (strcmp1[i] == strcmp2[i])
+	while (strcmp1[i] != '\0' && j == 0)
 	{
-		if (strcmp1[i + 1] == '\0')
-			return (0);
+		j = strcmp1[i] - strcmp2[i];
 		i++;
 	}
-	return (strcmp1[i] - strcmp2[i]);
+	return (j);
 }
 
 /**
- * _atoi - converts string to integer
- * @s: The string to b converted
- * Return: The int value to be converted to string
+ * _atoi - converts a string into an integer
+ * @str: string to convert
+ *
+ * Return: the integer value, or -1 if an error occurs
  */
-int _atoi(char *s)
+int _atoi(char *str)
 {
-	int sign = 1;
-	unsigned int num = 0;
+	unsigned int i, digits;
+	int num = 0, num_test;
 
-	do {
-		if (*s == '-')
-			sign *= -1;
-		else if (*s >= '0' && *s <= '9')
-			num = (num * 10) + (*s - '0');
-		else if (num > 0)
-			break;
-	} while (*s++);
-	return (num * sign);
+	num_test = INT_MAX;
+	for (digits = 0; num_test != 0; digits++)
+		num_test /= 10;
+	for (i = 0; str[i] != '\0' && i < digits; i++)
+	{
+		num *= 10;
+		if (str[i] < '0' || str[i] > '9')
+			return (-1);
+		if ((i == digits - 1) && (str[i] - '0' > INT_MAX % 10))
+			return (-1);
+		num += str[i] - '0';
+		if ((i == digits - 2) && (str[i + 1] != '\0') && (num > INT_MAX / 10))
+			return (-1);
+	}
+	if (i > digits)
+		return (-1);
+	return (num);
 }

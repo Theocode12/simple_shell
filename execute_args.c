@@ -144,22 +144,7 @@ int exec_cmd(char **args, char **argv)
 	if (check_run == 0)
 		check_run = check_cwd(check_run, args, argv);
 	if (check_run < 1)
-	{
-		count = _strlen(argv[0]);
-		if (isatty(STDIN_FILENO))
-		{
-			write(STDERR_FILENO, argv[0], count);
-			write(STDERR_FILENO, ": No such file or directory\n", 28);
-		}
-		else
-		{
-			write(STDERR_FILENO, argv[0], count);
-			write(STDERR_FILENO, " 1: ", 4);
-			count = _strlen(args[0]);
-			write(STDERR_FILENO, args[0], count);
-			write(STDERR_FILENO, ": not found\n", 12);
-		}
-	}
+		check_cmd_tty(args, argv);
 	free(pathenv);
 	return (1);
 }
