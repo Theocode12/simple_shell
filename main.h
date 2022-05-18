@@ -31,6 +31,8 @@ char *_strtok(char *str, const char *delim);
 ssize_t _getline(char **lineptr, size_t *n, FILE *stream);
 char *_getenv(char *name);
 int _unsetenv(char *name);
+char *setenv_cat(char *name, char *value);
+int _setenv(char *name, char *value);
 char **get_args(char *line);
 
 int _strlen(char *s);
@@ -42,6 +44,7 @@ int builtin_args(char **args);
 void bui_exit(char **args);
 void bui_env(char **args);
 void bui_unsetenv(__attribute__((unused))char **args);
+void bui_setenv(char **args);
 int execute_cmd(char **args);
 int check_execute(char **args);
 int check_dir(char **args);

@@ -11,11 +11,14 @@ int main(void)
 {
 	char *line = NULL, **args;
 	int status = 1;
+	char **chk_env = environ;
 	ssize_t count;
 	size_t n = 0;
 
 	do {
 		printf("($) ");
+		if (chk_env != environ)
+			chk_env = NULL;
 		count = _getline(&line, &n, stdin);
 		if (count < 0)
 		{
@@ -25,26 +28,12 @@ int main(void)
 			break;
 		}
 		args = get_args(line);
-		if (args == NULL)
-			printf("Null seen");
 		status = builtin_args(args);
-		printf("status: %d\n", status);
 		if (status < 0)
 			status = execute_cmd(args);
-		/*i = 0;
-		while (environ[i] != NULL)
-		{
-			printf("%s\n", environ[i]);
-			i++;
-		}*/
-		
-		/*if (*line != '\0')
-		{
-			free(line);
-			
-		}
-		free(NULL);*/
+		free(args);
 	} while (status);
-
+	if (chk_env == NULL)
+		free(environ);
 	return (0);
 }

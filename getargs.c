@@ -11,7 +11,6 @@ char **get_args(char *line)
 	char **args;
 	int i = 0, size = BUFFSIZE;
 
-	printf("line : %d\n", *line);
 	if (*line == '\0')
 		return (NULL);
 	args = malloc(size * sizeof(char *));
@@ -52,7 +51,6 @@ int check_cwd(int check_run, char **args)
 	{
 		getcwd(cwd, sizeof(cwd));
 		path = _strcat(cwd, args[0]);
-		printf("getcwd %s\n", path);
 		if (stat(path, &st) == 0)
 		{
 			args[0] = path;

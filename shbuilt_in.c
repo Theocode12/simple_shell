@@ -13,6 +13,7 @@ int builtin_args(char **args)
 		{"exit", bui_exit},
 		{"env", bui_env},
 		{"unsetenv", bui_unsetenv},
+		{"setenv", bui_setenv},
 		{NULL, NULL}
 	};
 	if (args == NULL)
@@ -21,6 +22,7 @@ int builtin_args(char **args)
 	{
 		if (_strcmp(args[0], ptr[i].name) == 0)
 		{
+			printf("%s\n", ptr[i].name);
 			status = 1;
 			ptr[i].f(args);
 		}
@@ -35,6 +37,11 @@ int builtin_args(char **args)
 
 void bui_unsetenv(char **args)
 {
+	if (args[2] != NULL)
+	{
+		perror("To many arguements");
+		return;
+	}
 	if (args[1] == NULL)
 	{
 		perror("insufficient arguements");
@@ -77,4 +84,26 @@ void bui_env(__attribute__((unused))char **args)
 			printf("%s\n", environ[i]);
 			i++;
 		}
+	else
+		perror("invalid command");
+}
+
+/**
+ * bui_setenv - set an environmental variable
+ * @args: arguements
+ */
+
+void bui_setenv(char **args)
+{
+	if (args[3] != NULL)
+	{
+		perror("Too many arguements for setenv");
+		return;
+	}
+	if (args[1] == NULL) 
+	{
+		perror("insufficient arguements");
+		return;
+	}
+	_setenv(args[1], args[2]);
 }
