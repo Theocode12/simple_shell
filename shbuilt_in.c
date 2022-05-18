@@ -54,6 +54,7 @@ void bui_unsetenv(char **args,  __attribute__((unused))char **argv)
 /**
  * bui_exit - built_in exit
  * @args: arguement
+ * @argv: argument vector from main.c
  */
 
 void bui_exit(char **args, char **argv)
