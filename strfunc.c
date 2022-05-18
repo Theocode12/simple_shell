@@ -76,29 +76,6 @@ char *_strcat(char *src, char *dest)
 	return (cat_str);
 }
 /**
-<<<<<<< HEAD
- * _strcmp - compare two strings
- * @str1: first string
- * @str2: second string
- *
- * Return: 0 if both are same else -1.
- */
-int _strcmp(char *str1, char *str2)
-{
-	int i = 0, j = 0, cmp = 0;
-
-	while (str1[i] && str2[j])
-	{
-		if (str1[i] != str2[j])
-		{
-			cmp = -1;
-			break;
-		}
-		i++;
-		j++;
-	}
-	return (cmp);
-=======
  * _strcmp - compares two strings
  * @strcmp1: first string, of two, to be compared in length
  * @strcmp2: second string, of two, to be compared
@@ -116,5 +93,4 @@ int _strcmp(char *strcmp1, char *strcmp2)
 		i++;
 	}
 	return (strcmp1[i] - strcmp2[i]);
->>>>>>> 210119bfbe8624e2355d7500278e9f000f77ce07
 }

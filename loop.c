@@ -25,7 +25,7 @@ void sh_loop(void)
 			break;
 		}
 		args = get_args(line);
-		status = built_in(args);
+		status = builtin_args(args);
 		if (status < 0)
 			status = execute_cmd(args);
 	} while (status);
