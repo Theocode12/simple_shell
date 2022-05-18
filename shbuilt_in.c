@@ -113,7 +113,7 @@ void bui_env(__attribute__((unused))char **args, __attribute__((unused))char **a
 
 /**
  * bui_setenv - set an environmental variable
- * @args: arguments
+ * @args: arguments from custom shell
  * @argv: argument from main.c
  */
 
