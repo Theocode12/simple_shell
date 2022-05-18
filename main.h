@@ -22,19 +22,12 @@ typedef struct builtin_fun
 	char *name;
 	void (*f)(char **args);
 } built_in;
-
-/*Global variable*/
 extern char **environ;
-
-/*Simple shell output prompt*/
 void sh_loop(void);
-
-/*String token helper functions and it customized form*/
 char *eval_str(char *str, char **nxt_ptr, const char *delim);
 char *check_str(char *str, const char *delim);
 char *_strtok(char *str, const char *delim);
 
-/*Custom functions of builtin functions*/
 ssize_t _getline(char **lineptr, size_t *n, FILE *stream);
 char *_getenv(char *name);
 int _unsetenv(char *name);
@@ -42,13 +35,11 @@ char *setenv_cat(char *name, char *value);
 int _setenv(char *name, char *value);
 char **get_args(char *line);
 
-/*Custom string functions*/
 int _strlen(char *s);
 char *_strcat(char *src, char *dest);
 char *_strdup(char *str);
 int _strcmp(char *strcmp1, char *strcmp2);
 
-/*Custom functions of builtin commands*/
 int builtin_args(char **args);
 void bui_exit(char **args);
 void bui_env(char **args);

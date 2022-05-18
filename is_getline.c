@@ -42,5 +42,11 @@ ssize_t _getline(char **lineptr, size_t *n, FILE *stream)
 	if (c != '\n')
 		putchar('\n');
 	(*lineptr)[count] = '\0';
+
+	/**
+	 * for (count = 0; (*lineptr)[count]; count++)
+		putchar((*lineptr)[count]);
+	 * putchar('\n');
+	*/
 	return (count);
 }

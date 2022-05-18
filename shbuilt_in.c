@@ -22,6 +22,7 @@ int builtin_args(char **args)
 	{
 		if (_strcmp(args[0], ptr[i].name) == 0)
 		{
+			printf("%s\n", ptr[i].name);
 			status = 1;
 			ptr[i].f(args);
 		}
@@ -99,7 +100,7 @@ void bui_setenv(char **args)
 		perror("Too many arguements for setenv");
 		return;
 	}
-	if (args[1] == NULL)
+	if (args[1] == NULL) 
 	{
 		perror("insufficient arguements");
 		return;
