@@ -90,6 +90,7 @@ void bui_exit(char **args, char **argv)
 			count = _strlen(args[0]);
 			write(STDERR_FILENO, args[0], count);
 			write(STDERR_FILENO, "Illegal number\n", 15);
+			return;
 		}
 	}
 	free(*args);
