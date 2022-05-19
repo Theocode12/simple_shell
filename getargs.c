@@ -27,7 +27,7 @@ char **get_args(char *line)
 		if (i >= size)
 		{
 			size *= 2;
-			args = realloc(args, size);
+			args = _realloc(args, size);
 			if (args == NULL)
 				return (NULL);
 		}
@@ -92,4 +92,31 @@ void check_cmd_tty(char **args, char **argv)
 		write(STDERR_FILENO, args[0], count);
 		write(STDERR_FILENO, ": not found\n", 12);
 	}
+}
+
+/**
+ * _realloc - reallocates a pointer to double the space
+ * @ptr: pointer to the old array
+ * @size: pointer to number of elements in the old array
+ *
+ * Return: pointer to the new array
+ */
+char **_realloc(char **ptr, size_t *size)
+{
+	char **new;
+	size_t i;
+
+	new = malloc(sizeof(char *) * ((*size) + 10));
+	if (new == NULL)
+	{
+		free(ptr);
+		return (NULL);
+	}
+	for (i = 0; i < (*size); i++)
+	{
+		new[i] = ptr[i];
+	}
+	*size += 10;
+	free(ptr);
+	return (new);
 }

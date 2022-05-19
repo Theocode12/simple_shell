@@ -40,6 +40,7 @@ int _strlen(char *s);
 char *_strcat(char *src, char *dest);
 char *_strdup(char *str);
 int _strcmp(char *strcmp1, char *strcmp2);
+char **_realloc(char **ptr, size_t *size);
 int _atoi(char *str);
 
 int builtin_args(char **args, char **argv);
