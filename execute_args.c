@@ -46,7 +46,7 @@ void execute(char **args, char **argv)
 	child = fork();
 	if (child == 0)
 	{
-		if (execve(args[0], argv, environ) == -1)
+		if (execve(args[0], args, environ) == -1)
 		{
 			len_args = _strlen(args[0]);
 			len_argv = _strlen(argv[0]);

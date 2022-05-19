@@ -27,7 +27,7 @@ extern char **environ;
 void sh_loop(void);
 char *eval_str(char *str, char **nxt_ptr, const char *delim);
 char *check_str(char *str, const char *delim);
-char *_strtok(char *str, const char *delim);
+char *_strtok(char *s, const char *delim);
 
 ssize_t _getline(char **lineptr, size_t *n, FILE *stream);
 char *_getenv(char *name);

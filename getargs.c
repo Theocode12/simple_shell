@@ -22,6 +22,11 @@ char **get_args(char *line)
 		return (NULL);
 	}
 	args[i] = _strtok(line, " \n\t\r");
+	if (args[i] == NULL)
+	{
+		free(args);
+		return (NULL);
+	}
 	while (args[i] != NULL)
 	{
 		if (i >= size)
@@ -33,7 +38,7 @@ char **get_args(char *line)
 		}
 		i++;
 		args[i] = _strtok(NULL, " \n\t\r");
-	}
+	};
 	return (args);
 }
 
@@ -54,6 +59,7 @@ int check_cwd(int check_run, char **args, char **argv)
 	{
 		getcwd(cwd, sizeof(cwd));
 		path = _strcat(cwd, args[0]);
+		printf("%s\n", path);
 		if (stat(path, &st) == 0)
 		{
 			args[0] = path;

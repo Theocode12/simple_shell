@@ -87,18 +87,19 @@ char *eval_str(char *str, char **nxt_ptr, const char *delim)
 
 /**
  * _strtok - extract tokens from string
- * @str: string to be evaluated
+ * @s: string to be evaluated
  * @delim: delimeter
  * Return: tokens of string every successive call till a null char is met
  */
 
-char *_strtok(char *str, const char *delim)
+char *_strtok(char *s, const char *delim)
 {
 	static char *nxt_ptr;
+	char *str;
 
-	if (str != NULL)
+	if (s != NULL)
 	{
-		str = check_str(str, delim);
+		str = check_str(s, delim);
 		nxt_ptr = str;
 	}
 	else

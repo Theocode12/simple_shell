@@ -29,7 +29,7 @@ int main(__attribute__((unused))int argc, char **argv)
 		if (status < 0)
 			status = execute_cmd(args, argv);
 		free(args);
-	} while (status);
+	} while (1);
 	if (chk_env == NULL)
 		free(environ);
 	return (0);
