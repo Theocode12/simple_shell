@@ -21,7 +21,10 @@ int _unsetenv(char *name)
 	}
 	i--;
 	if (count == 0)
+	{
+		write(STDERR_FILENO, "No variable to unset\n", 21);
 		return (0);
+	}
 	new_env = malloc(i * sizeof(char *));
 	if (new_env == NULL)
 	{
@@ -60,7 +63,6 @@ int _setenv(char *name, char *value)
 			count++;
 		i++;
 	}
-	printf("count : %d\n", count);
 	if (count != 0)
 		new_env = malloc(sizeof(char *) * i);
 	else

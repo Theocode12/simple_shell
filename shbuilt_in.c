@@ -38,14 +38,18 @@ int builtin_args(char **args, char **argv)
 
 void bui_unsetenv(char **args,  __attribute__((unused))char **argv)
 {
-	if (args[2] != NULL)
+	int i;
+
+	for (i = 0; args[i]; i++)
+		;
+	if (i > 2)
 	{
-		perror("To many arguements");
+		write(STDERR_FILENO, "Too many arguements for unsetenv\n", 34);
 		return;
 	}
 	if (args[1] == NULL)
 	{
-		perror("insufficient arguements");
+		write(STDERR_FILENO, "Insufficient number of arguments\n", 33);
 		return;
 	}
 	_unsetenv(args[1]);
@@ -119,14 +123,18 @@ void bui_env(char **args, __attribute__((unused))char **argv)
 
 void bui_setenv(char **args,  __attribute__((unused))char **argv)
 {
-	if (args[3] != NULL)
+	int i;
+
+	for (i = 0; args[i]; i++)
+		;
+	if (i > 3)
 	{
-		perror("Too many arguements for setenv");
+		write(STDERR_FILENO, "Too many arguements for setenv\n", 31);
 		return;
 	}
-	if (args[1] == NULL)
+	if (args[1] == NULL || args[2] == NULL)
 	{
-		perror("insufficient arguements");
+		write(STDERR_FILENO, "Insufficient number of arguments\n", 33);
 		return;
 	}
 	_setenv(args[1], args[2]);
