@@ -88,7 +88,7 @@ void bui_exit(char **args, char **argv)
  * @argv: argument vector from main.c
  */
 
-void bui_env(__attribute__((unused))char **args, __attribute__((unused))char **argv)
+void bui_env(char **args, __attribute__((unused))char **argv)
 {
 	unsigned int i, count = 0;
 
