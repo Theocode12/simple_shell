@@ -86,10 +86,14 @@ void bui_exit(char **args, char **argv)
 		{
 			count = _strlen(argv[0]);
 			write(STDERR_FILENO, argv[0], count);
-			write(STDERR_FILENO, ": ", 2);
+			write(STDERR_FILENO, ": 1: ", 5);
 			count = _strlen(args[0]);
 			write(STDERR_FILENO, args[0], count);
-			write(STDERR_FILENO, "Illegal number\n", 15);
+			write(STDERR_FILENO, ": Illegal number\n", 15);
+			write(STDERR_FILENO, ": ", 2);
+			count = _strlen(args[1]);
+			write(STDERR_FILENO, args[1], count);
+			write(STDERR_FILENO, "\n", 1);
 			return;
 		}
 	}
