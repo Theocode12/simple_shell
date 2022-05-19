@@ -39,7 +39,7 @@ ssize_t _getline(char **lineptr, size_t *n, FILE *stream)
 		if (count >= (*n))
 		{
 			*n = (*n) * 2;
-			*lineptr = (char *)_realloc(*lineptr, *n);
+			*lineptr = (char *)realloc(*lineptr, *n);
 			if ((*lineptr) == NULL)
 				return (-1);
 		}
