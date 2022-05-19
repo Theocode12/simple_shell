@@ -93,7 +93,6 @@ void bui_exit(char **args, char **argv)
 			write(STDERR_FILENO, ": ", 2);
 			count = _strlen(args[1]);
 			write(STDERR_FILENO, args[1], count);
-			write(STDERR_FILENO, "\n", 1);
 			return;
 		}
 	}
