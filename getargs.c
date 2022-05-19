@@ -59,7 +59,6 @@ int check_cwd(int check_run, char **args, char **argv)
 	{
 		getcwd(cwd, sizeof(cwd));
 		path = _strcat(cwd, args[0]);
-		printf("%s\n", path);
 		if (stat(path, &st) == 0)
 		{
 			args[0] = path;
