@@ -21,7 +21,7 @@
 typedef struct builtin_fun
 {
 	char *name;
-	void (*f)(char **args, char **argv);
+	int (*f)(char **args, char **argv);
 } built_in;
 extern char **environ;
 void sh_loop(void);
@@ -43,10 +43,10 @@ int _strcmp(char *strcmp1, char *strcmp2);
 int _atoi(char *str);
 
 int builtin_args(char **args, char **argv);
-void bui_exit(char **args, char **argv);
-void bui_env(char **args, char **argv);
-void bui_unsetenv(__attribute__((unused))char **args, char **argv);
-void bui_setenv(char **args, char **argv);
+int bui_exit(char **args, char **argv);
+int bui_env(char **args, char **argv);
+int bui_unsetenv(__attribute__((unused))char **args, char **argv);
+int bui_setenv(char **args, char **argv);
 int execute_cmd(char **args, char **argv);
 int check_execute(char **args, char **argv);
 int check_dir(char **args);

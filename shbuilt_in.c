@@ -23,8 +23,7 @@ int builtin_args(char **args, char **argv)
 	{
 		if (_strcmp(args[0], ptr[i].name) == 0)
 		{
-			status = 1;
-			ptr[i].f(args, argv);
+			status = ptr[i].f(args, argv);
 		}
 	}
 	return (status);
@@ -34,9 +33,10 @@ int builtin_args(char **args, char **argv)
  * bui_unsetenv - unset an env variable
  * @args: arguments from custom shell
  * @argv: argument vector from main.c
+ * Return: integer
  */
 
-void bui_unsetenv(char **args,  __attribute__((unused))char **argv)
+int bui_unsetenv(char **args,  __attribute__((unused))char **argv)
 {
 	int i;
 
@@ -45,23 +45,25 @@ void bui_unsetenv(char **args,  __attribute__((unused))char **argv)
 	if (i > 2)
 	{
 		write(STDERR_FILENO, "Too many arguements for unsetenv\n", 34);
-		return;
+		return (-1);
 	}
 	if (args[1] == NULL)
 	{
 		write(STDERR_FILENO, "Insufficient number of arguments\n", 33);
-		return;
+		return (-1);
 	}
 	_unsetenv(args[1]);
+	return (1);
 }
 
 /**
  * bui_exit - built_in exit
  * @args: argument from custom shell
  * @argv: argument vector from main.c
+ * Return: integer
  */
 
-void bui_exit(char **args, char **argv)
+int bui_exit(char **args, char **argv)
 {
 	int status = 0, count = 0, i;
 	char *msg = ": too many arguments\n";
@@ -77,8 +79,7 @@ void bui_exit(char **args, char **argv)
 		count = _strlen(args[0]);
 		write(STDERR_FILENO, args[0], count);
 		write(STDERR_FILENO, msg, status);
-		exit(2);
-		return;
+		return (2);
 	}
 	if (args[1] != NULL)
 	{
@@ -94,7 +95,7 @@ void bui_exit(char **args, char **argv)
 			write(STDERR_FILENO, ": ", 2);
 			count = _strlen(args[1]);
 			write(STDERR_FILENO, args[1], count);
-			return;
+			return (2);
 		}
 	}
 	free(*args);
@@ -106,9 +107,10 @@ void bui_exit(char **args, char **argv)
  * bui_env - get environment variables
  * @args: arguments fro custom shell
  * @argv: argument vector from main.c
+ * Return: integer
  */
 
-void bui_env(char **args, __attribute__((unused))char **argv)
+int bui_env(char **args, __attribute__((unused))char **argv)
 {
 	unsigned int i, count = 0;
 
@@ -129,15 +131,17 @@ void bui_env(char **args, __attribute__((unused))char **argv)
 		write(STDERR_FILENO, args[1], count);
 		write(STDERR_FILENO, ": No such file or directory\n", 31);
 	}
+	return (1);
 }
 
 /**
  * bui_setenv - set an environmental variable
  * @args: arguments from custom shell
  * @argv: argument from main.c
+ * Return: integer
  */
 
-void bui_setenv(char **args,  __attribute__((unused))char **argv)
+int bui_setenv(char **args,  __attribute__((unused))char **argv)
 {
 	int i;
 
@@ -146,12 +150,13 @@ void bui_setenv(char **args,  __attribute__((unused))char **argv)
 	if (i > 3)
 	{
 		write(STDERR_FILENO, "Too many arguements for setenv\n", 31);
-		return;
+		return (-1);
 	}
 	if (args[1] == NULL || args[2] == NULL)
 	{
 		write(STDERR_FILENO, "Insufficient number of arguments\n", 33);
-		return;
+		return (-1);
 	}
 	_setenv(args[1], args[2]);
+	return (1);
 }
