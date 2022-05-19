@@ -81,9 +81,16 @@ void bui_exit(char **args, char **argv)
 	}
 	if (args[1] != NULL)
 	{
-		write(STDERR_FILENO, "Too many arguements for setenv\n", 31);
-		return;
 		status =  _atoi(args[1]);
+		if (status == -1)
+		{
+			count = _strlen(argv[0]);
+			write(STDERR_FILENO, argv[0], count);
+			write(STDERR_FILENO, ": ", 2);
+			count = _strlen(args[0]);
+			write(STDERR_FILENO, args[0], count);
+			write(STDERR_FILENO, "Illegal number\n", 15);
+		}
 	}
 	free(*args);
 	free(args);
