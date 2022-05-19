@@ -15,52 +15,46 @@
 ## Description
 simple_shell is a command line interpreter, or shell, in the tradition of the first Unix shell written by Ken Thompson in 1971. This shell is intentionally minimalistic, yet includes the basic functionality of a traditional Unix-like command line user interface. 
 Standard functions and system calls employed in simple_shell include:
-   `access, execve, exit, fork, free, fstat, getline, malloc, perror, signal, stat, wait, write.`
+   `access, execve, exit, fork, free, getline, malloc, perror, stat, wait, write.`
 
 ## File Structure
 * [AUTHORS](AUTHORS) - List of contributors to this repository
 * [man_1_simple_shell](man_1_simple_shell) - Manual page for the simple_shell
-* [shell.h](shell.h) - program header file
-* [builtins.c](builtins.c) - major builtin functions
-  * `check_for_builtins` - checks to see if the user's command matches a builtin
-  * `new_exit` - exits the shell with the option of a specified status
-  * `_env` - prints the shell's environment variables to the standard output
-  * `new_setenv` - initializes a new environment variable, or modifies an existing one
-  * `new_unsetenv` - removes an environment variable
-* [builtins2.c](builtins2.c) - helper functions for the builtins
-  * `add_key` - creates a new environment variable
-  * `find_key` - finds an environment variable in the environment array
-  * `add_value` - creates a new environment variable string
-  * `_atoi` - converts a string into a non-negative integer
-* [environment.c](environment.c) - functions related to the environment
-  * `make_env` - creates the shell's environment from the parent process
-  * `free_env` - frees the shell's environment
-* [errors.c](errors.c) - functions related to printing errors
-  * `print_error` - prints an error message to the standard error
-  * `_puts2` - prints a string to the standard error
-  * `_uitoa` - converts an unsigned integer to a string
-* [memory_allocation.c](memory_allocation.c) - memory allocation functions
-  * `_realloc` - a custom realloc function for arrays of pointers
-* [new_strtok.c](new_strtok.c) - custom strtok and helper functions
-  * `check_match` - checks if a character matches any in a string
-  * `new_strtok` - a custom strtok for the shell
-* [path.c](path.c) - functions related to executing commands
-  * `path_execute` - executes a command in the PATH
-  * `find_path` - finds the PATH environment variable
-  * `check_for_path` - checks if the command is in the PATH
-  * `execute_cwd` - executes a command with an absolute path
-  * `check_for_dir` - checks if the command contains an absolute path
-* [simple_shell.c](simple_shell.c) - essential functions to the shell
+* [main.h](main.h) - program header file
+* [builtin.c](builtin.c) - major builtin functions
+  * `setenv_cat` - concats name and value about to be set
+  * `_setenv` - initializes a new environment variable, or modifies an existing one
+  * `_unsetenv` - removes an environment variable
+* [shbuilt_in.c](shbuilt_in.c) - helper functions for the builtins
+  * `builtin_args` - evaluates built in commands
+  * `bui_unsetenv` - unset an env variableenvironment array
+  * `bui_exit` - built_in exit
+  * `bui_env` - get environment variables
+  * `bui_setenv` - set an environmental variable
+* [is_getenv.c](is_getenv.c) - functions related to the environment
+  * `_getenv` - gets environmental variable
+* [getargs.c](getargs.c) - functions related to getting arguments from command line
+  * `get_args` - creates an array of pointers to tokens
+  * `check_cwd` - checks if command is in current working dir
+  * `check_cmd_tty` - checks if command is from terminal and print error message
+* [is_getline.c](is_getline.c) - reading line from a stream
+  * `_getline` - reads entire line from a stream
+* [execute_args.c](execute_args.c) - functions related to executing commands
+  * `execute_cmd` - executes a command in the PATH
+  * `exec_cmd` -  execute a args that are not directories
+  * `check_execute` - checks if the command exist in the PATH
+  * `execute` - executes a command in a child process
+  * `check_dir` - checks if the command contains an absolute path
+* [main.c](main.c) - entry point to the shell
   * `main` - the main function of the program
-  * `sig_handler` - handles SIGINT
 * [strfunc.c](strfunc.c) - functions related to string manipulation
-  * `_puts` - writes a string to standart output
   * `_strdup` - duplicates a string
-  * `_strcmpr` - compares two strings
+  * `_strcmp` - compares two strings
   * `_strcat` - concatenates two strings with a `/` in the middle
   * `_strlen` - calculates the length of a string
-* [tokenize.c](tokenize.c) - tokenizing function
-  * `tokenize` - creates an array of tokens from a buffer with a specified delimiter
+  * `_atoi` - converts a string into a non-negative integer
+* [is_strtok.c](is_strtok.c) - tokenizing function
+  * `_strtok` - creates an array of tokens from a buffer with a specified delimiter
 
 ## Requirements
 
@@ -85,8 +79,8 @@ The simple_shell is designed to execute commands in a similar manner to sh, howe
 - [x] custom strtok function
 - [x] uses exit status
 - [x] shell continues upon Crtl+C (**^C**)
-- [x] handles comments (#)
-- [x] handles **;**
+- [ ] handles comments (#)
+- [ ] handles **;**
 - [ ] custom getline type function
 - [ ] handles **&&** and **||**
 - [ ] aliases
@@ -113,21 +107,20 @@ total 100
 drwxrwxr-x  3 vagrant vagrant  4096 May 18 22:49 .
 drwxr-xr-x 14 vagrant vagrant  4096 May 17 22:37 ..
 -rw-rw-r--  1 vagrant vagrant   144 May 18 17:16 AUTHORS
--rw-rw-r--  1 vagrant vagrant  2367 Jul 19 22:33 builtins2.c
--rw-rw-r--  1 vagrant vagrant  2764 Jul 19 22:14 builtins.c
--rw-rw-r--  1 vagrant vagrant   710 Jul 16 01:03 environment.c
--rw-rw-r--  1 vagrant vagrant  1217 Jul 16 03:24 errors.c
-drwxrwxr-x  8 vagrant vagrant  4096 Jul 19 22:34 .git
--rwxrwxr-x  1 vagrant vagrant 32287 Jul 19 22:34 hsh
--rw-rw-r--  1 vagrant vagrant  1792 Jul 19 22:12 man_1_simple_shell
--rw-rw-r--  1 vagrant vagrant   484 Jul 15 20:09 memory_allocation.c
--rw-rw-r--  1 vagrant vagrant  1273 Jul 18 21:00 new_strtok.c
--rw-rw-r--  1 vagrant vagrant  3427 Jul 19 22:06 path.c
--rw-rw-r--  1 vagrant vagrant  2347 Jul 19 22:49 README.md
--rw-rw-r--  1 vagrant vagrant  1769 Jul 19 22:04 shell.h
--rw-rw-r--  1 vagrant vagrant  1480 Jul 18 21:15 simple_shell.c
--rw-rw-r--  1 vagrant vagrant  2111 Jul 16 01:10 strfunc.c
--rw-rw-r--  1 vagrant vagrant   719 Jul 19 21:46 tokenize.c
+-rw-rw-r--  1 vagrant vagrant  2367 May 19 22:33 builtin.c
+-rw-rw-r--  1 vagrant vagrant  2764 May 19 22:14 shbuilt_in.c
+-rw-rw-r--  1 vagrant vagrant   710 May 16 01:03 execute_args.c
+-rw-rw-r--  1 vagrant vagrant  1217 May 16 03:24 getargs.c
+drwxrwxr-x  8 vagrant vagrant  4096 May 19 22:34 .git
+-rwxrwxr-x  1 vagrant vagrant 32287 May 19 22:34 hsh
+-rw-rw-r--  1 vagrant vagrant  1792 May 19 22:12 man_1_simple_shell
+-rw-rw-r--  1 vagrant vagrant   484 May 15 20:09 is_getenv.c
+-rw-rw-r--  1 vagrant vagrant  1273 May 18 21:00 is_getline.c
+-rw-rw-r--  1 vagrant vagrant  3427 May 19 22:06 is_strtok.c
+-rw-rw-r--  1 vagrant vagrant  2347 May 19 22:49 README.md
+-rw-rw-r--  1 vagrant vagrant  1769 May 19 22:04 main.h
+-rw-rw-r--  1 vagrant vagrant  1480 May 18 21:15 main.c
+-rw-rw-r--  1 vagrant vagrant  2111 May 16 01:10 strfunc.c
 ```
 ## Bugs
 At this time, there are some bugs.
@@ -139,17 +132,3 @@ Yahaya Azeez Adebayo | [GitHub](https://github.com/azconcept-droid) | [Twitter](
 
 ## License
 simple_shell is open source and therefore free to download and use without permission.
-
-> # C - Simple_Shell
-> A simple shell project for ALX
->
-> - ## main.c
-> Main entry point to call all the functions
-> - ## execute_args.c
-> This file has two functions check_dir() and execute(). check_dir() checks if the command is an absolute path while execute() executes a command in a child process.
-> - ## getargs.c
-> creates an array of pointers to tokens and returns pointer to a pointer of tokens also known as double pointer.
-> - ## is_getenv.c
-> Gets environmental variable and returns pointer to value in the environment else return NULL.
-> - ## is_getline.c
-> Reads entire line from the standard input and returns numbers of character read.
