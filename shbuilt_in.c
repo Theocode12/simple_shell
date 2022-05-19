@@ -63,7 +63,7 @@ void bui_unsetenv(char **args,  __attribute__((unused))char **argv)
 
 void bui_exit(char **args, char **argv)
 {
-	int status, count = 0, i;
+	int status = 0, count = 0, i;
 	char *msg = ": too many arguments\n";
 
 	for (i = 0; args[i]; i++)
@@ -80,7 +80,11 @@ void bui_exit(char **args, char **argv)
 		return;
 	}
 	if (args[1] != NULL)
+	{
+		write(STDERR_FILENO, "Too many arguements for setenv\n", 31);
+		return;
 		status =  _atoi(args[1]);
+	}
 	free(*args);
 	free(args);
 	exit(status);
