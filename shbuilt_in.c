@@ -63,7 +63,7 @@ void bui_unsetenv(char **args,  __attribute__((unused))char **argv)
 
 void bui_exit(char **args, char **argv)
 {
-	int status =  0, count = 0, i;
+	int status, count = 0, i;
 	char *msg = ": too many arguments\n";
 
 	for (i = 0; args[i]; i++)
